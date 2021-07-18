@@ -195,6 +195,10 @@ function () {
     this.renderTemplate = this.template;
   };
 
+  View.prototype.setTemplateData = function (key, value) {
+    this.renderTemplate = this.renderTemplate.replace("{{__" + key + "__}}", value);
+  };
+
   return View;
 }();
 
@@ -236,7 +240,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var view_1 = __importDefault(require("../core/view"));
 
-var template = "     \n<div class=\"my_container\">\n    <div class=\"my_text\">\n        <a href=\"#\"> \uC131\uACBDApi</a>\n        <a href=\"#\"> N\uC0AC \uD074\uB860 \uCF54\uB529</a>\n    </div>\n</div>\n";
+var template = "     \n<div class=\"my_container\">\n    <div class=\"my_text\">\n        <a href=\"#/bible/\"> \uC131\uACBDApi</a>\n        <a href=\"#\"> N\uC0AC \uD074\uB860 \uCF54\uB529</a>\n    </div>\n</div>\n";
 
 var IndexView =
 /** @class */
@@ -256,7 +260,475 @@ function (_super) {
 }(view_1.default);
 
 exports.default = IndexView;
-},{"../core/view":"core/view.ts"}],"page/index.ts":[function(require,module,exports) {
+},{"../core/view":"core/view.ts"}],"config.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.BIBLE_URL = "https://raw.githubusercontent.com/songk1992/mini_front_end_projects/master/src/data/newTestament.json";
+},{}],"core/api.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var extendStatics = Object.setPrototypeOf || {
+    __proto__: []
+  } instanceof Array && function (d, b) {
+    d.__proto__ = b;
+  } || function (d, b) {
+    for (var p in b) {
+      if (b.hasOwnProperty(p)) d[p] = b[p];
+    }
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : new P(function (resolve) {
+        resolve(result.value);
+      }).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __generator = this && this.__generator || function (thisArg, body) {
+  var _ = {
+    label: 0,
+    sent: function sent() {
+      if (t[0] & 1) throw t[1];
+      return t[1];
+    },
+    trys: [],
+    ops: []
+  },
+      f,
+      y,
+      t,
+      g;
+  return g = {
+    next: verb(0),
+    "throw": verb(1),
+    "return": verb(2)
+  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
+    return this;
+  }), g;
+
+  function verb(n) {
+    return function (v) {
+      return step([n, v]);
+    };
+  }
+
+  function step(op) {
+    if (f) throw new TypeError("Generator is already executing.");
+
+    while (_) {
+      try {
+        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+        if (y = 0, t) op = [op[0] & 2, t.value];
+
+        switch (op[0]) {
+          case 0:
+          case 1:
+            t = op;
+            break;
+
+          case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+          case 5:
+            _.label++;
+            y = op[1];
+            op = [0];
+            continue;
+
+          case 7:
+            op = _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+
+          default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+              _ = 0;
+              continue;
+            }
+
+            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+
+            if (op[0] === 6 && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+
+              _.ops.push(op);
+
+              break;
+            }
+
+            if (t[2]) _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+        }
+
+        op = body.call(thisArg, _);
+      } catch (e) {
+        op = [6, e];
+        y = 0;
+      } finally {
+        f = t = 0;
+      }
+    }
+
+    if (op[0] & 5) throw op[1];
+    return {
+      value: op[0] ? op[1] : void 0,
+      done: true
+    };
+  }
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var config_1 = require("../config");
+
+var Api =
+/** @class */
+function () {
+  function Api(url) {
+    this.url = url;
+  }
+
+  Api.prototype.request = function () {
+    return __awaiter(this, void 0, Promise, function () {
+      var response;
+      return __generator(this, function (_a) {
+        switch (_a.label) {
+          case 0:
+            return [4
+            /*yield*/
+            , fetch(this.url)];
+
+          case 1:
+            response = _a.sent();
+            return [4
+            /*yield*/
+            , response.json()];
+
+          case 2:
+            return [2
+            /*return*/
+            , _a.sent()];
+        }
+      });
+    });
+  };
+
+  return Api;
+}();
+
+exports.default = Api;
+/**
+ * 성경을 읽어오는 클래스
+ * 추후 필요시 외부 URL 과 연결된 DB로 변경
+ */
+
+var BibleApi =
+/** @class */
+function (_super) {
+  __extends(BibleApi, _super);
+
+  function BibleApi() {
+    return _super.call(this, config_1.BIBLE_URL) || this;
+  }
+
+  BibleApi.prototype.getData = function () {
+    return __awaiter(this, void 0, Promise, function () {
+      return __generator(this, function (_a) {
+        return [2
+        /*return*/
+        , this.request()];
+      });
+    });
+  };
+
+  return BibleApi;
+}(Api);
+
+exports.BibleApi = BibleApi;
+},{"../config":"config.ts"}],"page/bible-view.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var extendStatics = Object.setPrototypeOf || {
+    __proto__: []
+  } instanceof Array && function (d, b) {
+    d.__proto__ = b;
+  } || function (d, b) {
+    for (var p in b) {
+      if (b.hasOwnProperty(p)) d[p] = b[p];
+    }
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : new P(function (resolve) {
+        resolve(result.value);
+      }).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __generator = this && this.__generator || function (thisArg, body) {
+  var _ = {
+    label: 0,
+    sent: function sent() {
+      if (t[0] & 1) throw t[1];
+      return t[1];
+    },
+    trys: [],
+    ops: []
+  },
+      f,
+      y,
+      t,
+      g;
+  return g = {
+    next: verb(0),
+    "throw": verb(1),
+    "return": verb(2)
+  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
+    return this;
+  }), g;
+
+  function verb(n) {
+    return function (v) {
+      return step([n, v]);
+    };
+  }
+
+  function step(op) {
+    if (f) throw new TypeError("Generator is already executing.");
+
+    while (_) {
+      try {
+        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+        if (y = 0, t) op = [op[0] & 2, t.value];
+
+        switch (op[0]) {
+          case 0:
+          case 1:
+            t = op;
+            break;
+
+          case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+          case 5:
+            _.label++;
+            y = op[1];
+            op = [0];
+            continue;
+
+          case 7:
+            op = _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+
+          default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+              _ = 0;
+              continue;
+            }
+
+            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+
+            if (op[0] === 6 && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+
+              _.ops.push(op);
+
+              break;
+            }
+
+            if (t[2]) _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+        }
+
+        op = body.call(thisArg, _);
+      } catch (e) {
+        op = [6, e];
+        y = 0;
+      } finally {
+        f = t = 0;
+      }
+    }
+
+    if (op[0] & 5) throw op[1];
+    return {
+      value: op[0] ? op[1] : void 0,
+      done: true
+    };
+  }
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var view_1 = __importDefault(require("../core/view"));
+
+var api_1 = require("../core/api");
+
+var template = "\n<div class=\"my_container\">\n    <div class=\"my_text\">\n        <p>\uC791\uC5C5\uC911</p>\n        <p>{{__abbrev__}}</p>\n        <p>{{__name__}}</p>\n        <p>{{__ch_name__}}</p>\n        <p>{{__ch_no__}} - {{__verse_no__}}</p>\n        <p>{{__verse_text__}}</p>\n    </div>\n</div>\n";
+
+var BibleView =
+/** @class */
+function (_super) {
+  __extends(BibleView, _super);
+
+  function BibleView(containerId) {
+    var _this = _super.call(this, containerId, template) || this;
+
+    _this.render = function () {
+      return __awaiter(_this, void 0, Promise, function () {
+        var api, _a, abbrev, name, book, _b, ch_name, chapter, _c, ch_no, verse, _d, verse_no, verse_text;
+
+        return __generator(this, function (_e) {
+          switch (_e.label) {
+            case 0:
+              api = new api_1.BibleApi();
+              return [4
+              /*yield*/
+              , api.getData()];
+
+            case 1:
+              _a = _e.sent(), abbrev = _a.abbrev, name = _a.name, book = _a.book;
+              _b = book[0], ch_name = _b.ch_name, chapter = _b.chapter;
+              _c = chapter[0], ch_no = _c.ch_no, verse = _c.verse;
+              _d = verse[0], verse_no = _d.verse_no, verse_text = _d.verse_text;
+              this.setTemplateData('abbrev', abbrev);
+              this.setTemplateData('name', name);
+              this.setTemplateData('ch_name', ch_name);
+              this.setTemplateData('ch_no', ch_no);
+              this.setTemplateData('verse_no', verse_no);
+              this.setTemplateData('verse_text', verse_text);
+              this.updateView();
+              return [2
+              /*return*/
+              ];
+          }
+        });
+      });
+    };
+
+    return _this;
+  }
+
+  return BibleView;
+}(view_1.default);
+
+exports.default = BibleView;
+},{"../core/view":"core/view.ts","../core/api":"core/api.ts"}],"page/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -266,7 +738,11 @@ Object.defineProperty(exports, "__esModule", {
 var index_view_1 = require("./index-view");
 
 exports.IndexView = index_view_1.default;
-},{"./index-view":"page/index-view.ts"}],"app.ts":[function(require,module,exports) {
+
+var bible_view_1 = require("./bible-view");
+
+exports.BibleView = bible_view_1.default;
+},{"./index-view":"page/index-view.ts","./bible-view":"page/bible-view.ts"}],"app.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -285,8 +761,10 @@ var index_1 = require("./page/index");
 
 var router = new router_1.default();
 var indexView = new index_1.IndexView('root');
+var bibleView = new index_1.BibleView('root');
 router.setDefaultPage(indexView);
 router.addRoutePath('/index', indexView);
+router.addRoutePath('/bible', bibleView);
 router.route();
 },{"./core/router":"core/router.ts","./page/index":"page/index.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -316,7 +794,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53705" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49881" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

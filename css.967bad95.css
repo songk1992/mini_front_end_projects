@@ -1,7 +1,50 @@
+@charset "UTF-8";
+
 * {
   margin: 0;
   padding: 0;
+  border: 0;
 }
+
+/*
+	글꼴
+*/
+
+body {
+  font-family: "Open Sans", "Nanum Gothic", sans-serif;
+}
+
+h1 {
+  font-size: 2.2em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.8em;
+}
+
+h4 {
+  font-size: 1.6em;
+}
+
+h5 {
+  font-size: 1.4em;
+}
+
+p {
+  font-size: 1em;
+}
+
+/* 스크롤 바 숨김 */
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
+@charset "UTF-8";
 
 /*Keyframes*/
 @keyframes rain_effect {
@@ -96,9 +139,9 @@
   font-size: 4em;
 }
 
-a,
-a:link,
-a:visited {
+.my_text a,
+.my_text a:link,
+.my_text a:visited {
   color: azure;
   text-decoration: none;
   font-size: 4em;
