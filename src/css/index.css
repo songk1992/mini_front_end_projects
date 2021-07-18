@@ -1,7 +1,5 @@
-* {
-  margin: 0;
-  padding: 0;
-}
+@charset "UTF-8";
+@import url("./main.css");
 
 /*Keyframes*/
 @keyframes rain_effect {
@@ -96,9 +94,9 @@
   font-size: 4em;
 }
 
-a,
-a:link,
-a:visited {
+.my_text a,
+.my_text a:link,
+.my_text a:visited {
   color: azure;
   text-decoration: none;
   font-size: 4em;
