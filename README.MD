@@ -30,6 +30,10 @@
 
 <br />
 
+# 성경 API
+
+### JSON 출처 http://simoncozens.github.io/open-source-bible-data/cooked/simple-xml/kjv.xml
+
 공사중
 
 <br />
