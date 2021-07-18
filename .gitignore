@@ -124,5 +124,10 @@ out
 
 
 # 기타
-*/lib
 */.cache/
+dist/
+/node_module/
+
+
+
+
