@@ -2,7 +2,7 @@ import View from '../core/view';
 import { BibleApi } from '../core/api';
 
 const template: string = `
-<div class="my_container">
+<div class="bible_bg">
     <div class="my_text">
         <p>작업중</p>
         <p>{{__abbrev__}}</p>
@@ -25,7 +25,8 @@ export default class BibleView extends View {
         const {abbrev, name, book} = await api.getData();
 
         // 신약 마태복음 추후 수정
-        const {ch_name, chapter} = book[0];
+        let no = 0;
+        const {ch_name, chapter} = book[no];
         const {ch_no, verse} = chapter[0];
         const {verse_no, verse_text} = verse[0];
         this.setTemplateData('abbrev', abbrev);

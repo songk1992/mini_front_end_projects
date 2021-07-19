@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import url("./main.css");
+@import url("./bible.css");
 
 /*Keyframes*/
 @keyframes rain_effect {

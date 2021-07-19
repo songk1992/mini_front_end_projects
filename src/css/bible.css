@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.bible_bg {
+  width: 98%;
+  height: 100%;
+  margin: 0em 1%;
+  background-color: rgb(250, 247, 52);
+  background: url("../img/bible/clouds.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  animation: moveBackground 60s linear infinite;
+  /* Safari and Chrome: */
+  -webkit-animation: moveBackground 60s linear infinite;
+}
+@keyframes moveBackground {
+  from {
+    background-position: 0 100%;
+  }
+  to {
+    background-position: 100% 100%;
+  }
+}
+@-webkit-keyframes moveBackground {
+  from {
+    background-position: 0 100%;
+  }
+  to {
+    background-position: 100% 100%;
+  }
+}
