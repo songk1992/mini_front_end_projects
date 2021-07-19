@@ -1,9 +1,8 @@
 @charset "UTF-8";
 
 .bible_bg {
-  width: 98%;
+  width: 100%;
   height: 100%;
-  margin: 0em 1%;
   background-color: rgb(250, 247, 52);
   background: url("../img/bible/clouds.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -29,4 +28,34 @@
   to {
     background-position: 100% 100%;
   }
+}
+
+.bible-menu {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  color: #fff;
+  font-family: "Helvetica";
+  display: flex;
+  flex-direction: column;
+}
+
+.bible_text {
+  font-family: "Helvetica";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  text-shadow: 5px 5px #0053ff;
+  font-size: 4vw;
+}
+
+.bible_text p:hover {
+  color: #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff,
+    0 0 40px rgb(255, 196, 0), 0 0 80px rgb(255, 217, 0),
+    0 0 90px rgb(229, 255, 0), 0 0 150px rgb(245, 248, 42);
 }

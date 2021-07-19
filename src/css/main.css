@@ -43,3 +43,10 @@ p {
   width: 0; /* Remove scrollbar space */
   background: transparent; /* Optional: just make scrollbar invisible */
 }
+
+a,
+a:link,
+a:visited {
+  color: azure;
+  text-decoration: none;
+}

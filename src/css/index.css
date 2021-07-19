@@ -98,8 +98,6 @@
 .my_text a,
 .my_text a:link,
 .my_text a:visited {
-  color: azure;
-  text-decoration: none;
   font-size: 4em;
   font-weight: 900;
 }
