@@ -679,7 +679,7 @@ var view_1 = __importDefault(require("../core/view"));
 
 var api_1 = require("../core/api");
 
-var template = "\n<div class=\"my_container\">\n    <div class=\"my_text\">\n        <p>\uC791\uC5C5\uC911</p>\n        <p>{{__abbrev__}}</p>\n        <p>{{__name__}}</p>\n        <p>{{__ch_name__}}</p>\n        <p>{{__ch_no__}} - {{__verse_no__}}</p>\n        <p>{{__verse_text__}}</p>\n    </div>\n</div>\n";
+var template = "\n<div class=\"bible_bg\">\n    <div class=\"my_text\">\n        <p>\uC791\uC5C5\uC911</p>\n        <p>{{__abbrev__}}</p>\n        <p>{{__name__}}</p>\n        <p>{{__ch_name__}}</p>\n        <p>{{__ch_no__}} - {{__verse_no__}}</p>\n        <p>{{__verse_text__}}</p>\n    </div>\n</div>\n";
 
 var BibleView =
 /** @class */
@@ -691,7 +691,7 @@ function (_super) {
 
     _this.render = function () {
       return __awaiter(_this, void 0, Promise, function () {
-        var api, _a, abbrev, name, book, _b, ch_name, chapter, _c, ch_no, verse, _d, verse_no, verse_text;
+        var api, _a, abbrev, name, book, no, _b, ch_name, chapter, _c, ch_no, verse, _d, verse_no, verse_text;
 
         return __generator(this, function (_e) {
           switch (_e.label) {
@@ -703,7 +703,8 @@ function (_super) {
 
             case 1:
               _a = _e.sent(), abbrev = _a.abbrev, name = _a.name, book = _a.book;
-              _b = book[0], ch_name = _b.ch_name, chapter = _b.chapter;
+              no = 0;
+              _b = book[no], ch_name = _b.ch_name, chapter = _b.chapter;
               _c = chapter[0], ch_no = _c.ch_no, verse = _c.verse;
               _d = verse[0], verse_no = _d.verse_no, verse_text = _d.verse_text;
               this.setTemplateData('abbrev', abbrev);
@@ -794,7 +795,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49881" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59410" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
