@@ -679,19 +679,19 @@ var view_1 = __importDefault(require("../core/view"));
 
 var api_1 = require("../core/api");
 
-var template = "\n<div class=\"bible_bg\">\n    <div class=\"my_text\">\n        <p>\uC791\uC5C5\uC911</p>\n        <p>{{__abbrev__}}</p>\n        <p>{{__name__}}</p>\n        <p>{{__ch_name__}}</p>\n        <p>{{__ch_no__}} - {{__verse_no__}}</p>\n        <p>{{__verse_text__}}</p>\n    </div>\n</div>\n";
+var template = "\n<div class=\"bible-menu\">\n<p>\uC791\uC5C5\uC911</p>\n<p>{{__abbrev__}}</p>\n<p>{{__name__}}</p>\n<a href=\"#\"> \uB4A4\uB85C \uAC00\uAE30</a>\n</div>\n\n<div class=\"bible_bg\">\n    <div class=\"bible_text\">\n        <p>{{__ch_name__}} {{__ch_no__}} - {{__verse_no__}}</p>\n        <p>{{__verse_text__}}</p>\n    </div>\n</div>\n";
 
 var BibleView =
 /** @class */
 function (_super) {
   __extends(BibleView, _super);
 
-  function BibleView(containerId) {
+  function BibleView(containerId, bStore) {
     var _this = _super.call(this, containerId, template) || this;
 
     _this.render = function () {
       return __awaiter(_this, void 0, Promise, function () {
-        var api, _a, abbrev, name, book, no, _b, ch_name, chapter, _c, ch_no, verse, _d, verse_no, verse_text;
+        var api, _a, abbrev, name, book, _b, ch_name, chapter, _c, ch_no, verse, _d, verse_no, verse_text;
 
         return __generator(this, function (_e) {
           switch (_e.label) {
@@ -702,11 +702,38 @@ function (_super) {
               , api.getData()];
 
             case 1:
-              _a = _e.sent(), abbrev = _a.abbrev, name = _a.name, book = _a.book;
-              no = 0;
-              _b = book[no], ch_name = _b.ch_name, chapter = _b.chapter;
-              _c = chapter[0], ch_no = _c.ch_no, verse = _c.verse;
-              _d = verse[0], verse_no = _d.verse_no, verse_text = _d.verse_text;
+              _a = _e.sent(), abbrev = _a.abbrev, name = _a.name, book = _a.book; // 신약 마태복음 추후 수정
+
+              this._bStore.currentBook = this.findRandomNo(book.length);
+
+              if (book[this._bStore.currentBook] == NaN || book[this._bStore.currentBook] == undefined) {
+                this.render();
+                return [2
+                /*return*/
+                ];
+              }
+
+              _b = book[this._bStore.currentBook], ch_name = _b.ch_name, chapter = _b.chapter;
+              this._bStore.currentChapter = this.findRandomNo(chapter.length);
+
+              if (chapter[this._bStore.currentChapter] == NaN || chapter[this._bStore.currentChapter] == undefined) {
+                this.render();
+                return [2
+                /*return*/
+                ];
+              }
+
+              _c = chapter[this._bStore.currentChapter], ch_no = _c.ch_no, verse = _c.verse;
+              this._bStore._currentVerse = this.findRandomNo(verse.length);
+
+              if (verse[this._bStore.currentVerse] == NaN || verse[this._bStore.currentVerse] == undefined) {
+                this.render();
+                return [2
+                /*return*/
+                ];
+              }
+
+              _d = verse[this._bStore.currentVerse], verse_no = _d.verse_no, verse_text = _d.verse_text;
               this.setTemplateData('abbrev', abbrev);
               this.setTemplateData('name', name);
               this.setTemplateData('ch_name', ch_name);
@@ -722,8 +749,23 @@ function (_super) {
       });
     };
 
+    _this._bStore = bStore;
     return _this;
   }
+
+  BibleView.prototype.findRandomNo = function (curLen) {
+    var tempNo = Math.floor(Math.random() * curLen);
+
+    if (tempNo == null) {
+      tempNo = 0;
+    }
+
+    if (tempNo == NaN) {
+      tempNo = 0;
+    }
+
+    return tempNo;
+  };
 
   return BibleView;
 }(view_1.default);
@@ -743,7 +785,69 @@ exports.IndexView = index_view_1.default;
 var bible_view_1 = require("./bible-view");
 
 exports.BibleView = bible_view_1.default;
-},{"./index-view":"page/index-view.ts","./bible-view":"page/bible-view.ts"}],"app.ts":[function(require,module,exports) {
+},{"./index-view":"page/index-view.ts","./bible-view":"page/bible-view.ts"}],"store.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var BStore =
+/** @class */
+function () {
+  function BStore(cb, cc, cv) {
+    if (cb === void 0) {
+      cb = 0;
+    }
+
+    if (cc === void 0) {
+      cc = 0;
+    }
+
+    if (cv === void 0) {
+      cv = 0;
+    }
+
+    this._currentBook = cb;
+    this._currentChapter = cc;
+    this._currentVerse = cv;
+  }
+
+  Object.defineProperty(BStore.prototype, "currentBook", {
+    get: function get() {
+      return this._currentBook;
+    },
+    set: function set(cb) {
+      this._currentBook = cb;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(BStore.prototype, "currentChapter", {
+    get: function get() {
+      return this._currentChapter;
+    },
+    set: function set(cc) {
+      this._currentChapter = cc;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(BStore.prototype, "currentVerse", {
+    get: function get() {
+      return this._currentVerse;
+    },
+    set: function set(cv) {
+      this._currentVerse = cv;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  return BStore;
+}();
+
+exports.default = BStore;
+},{}],"app.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -760,14 +864,17 @@ var router_1 = __importDefault(require("./core/router"));
 
 var index_1 = require("./page/index");
 
+var store_1 = __importDefault(require("./store"));
+
+var bStore = new store_1.default();
 var router = new router_1.default();
 var indexView = new index_1.IndexView('root');
-var bibleView = new index_1.BibleView('root');
+var bibleView = new index_1.BibleView('root', bStore);
 router.setDefaultPage(indexView);
 router.addRoutePath('/index', indexView);
 router.addRoutePath('/bible', bibleView);
 router.route();
-},{"./core/router":"core/router.ts","./page/index":"page/index.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./core/router":"core/router.ts","./page/index":"page/index.ts","./store":"store.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -795,7 +902,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59410" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50078" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
