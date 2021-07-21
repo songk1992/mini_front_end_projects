@@ -691,51 +691,63 @@ function (_super) {
 
     _this.render = function () {
       return __awaiter(_this, void 0, Promise, function () {
-        var api, _a, abbrev, name, book, _b, ch_name, chapter, _c, ch_no, verse, _d, verse_no, verse_text;
+        var api, _a, abbrev, name, book, tempNo, _b, ch_name, chapter, _c, ch_no, verse, _d, verse_no, verse_text;
 
         return __generator(this, function (_e) {
           switch (_e.label) {
             case 0:
+              if (!(this._book == null)) return [3
+              /*break*/
+              , 2];
               api = new api_1.BibleApi();
               return [4
               /*yield*/
               , api.getData()];
 
             case 1:
-              _a = _e.sent(), abbrev = _a.abbrev, name = _a.name, book = _a.book; // 신약 마태복음 추후 수정
+              _a = _e.sent(), abbrev = _a.abbrev, name = _a.name, book = _a.book;
+              this._abbrev = abbrev;
+              this._name = name;
+              this._book = book;
+              _e.label = 2;
 
-              this._bStore.currentBook = this.findRandomNo(book.length);
+            case 2:
+              tempNo = Math.floor(Math.random() * this._book.length);
+              _b = this._book[tempNo], ch_name = _b.ch_name, chapter = _b.chapter;
 
-              if (book[this._bStore.currentBook] == NaN || book[this._bStore.currentBook] == undefined) {
-                this.render();
+              if (ch_name == undefined || chapter == undefined) {
                 return [2
                 /*return*/
-                ];
+                , this.render()];
               }
 
-              _b = book[this._bStore.currentBook], ch_name = _b.ch_name, chapter = _b.chapter;
-              this._bStore.currentChapter = this.findRandomNo(chapter.length);
+              this._chapter = chapter;
+              tempNo = Math.floor(Math.random() * this._chapter.length);
 
-              if (chapter[this._bStore.currentChapter] == NaN || chapter[this._bStore.currentChapter] == undefined) {
-                this.render();
+              if (typeof this._chapter.num == "string") {
                 return [2
                 /*return*/
-                ];
+                , this.render()];
               }
 
-              _c = chapter[this._bStore.currentChapter], ch_no = _c.ch_no, verse = _c.verse;
-              this._bStore._currentVerse = this.findRandomNo(verse.length);
+              _c = this._chapter[tempNo], ch_no = _c.ch_no, verse = _c.verse;
 
-              if (verse[this._bStore.currentVerse] == NaN || verse[this._bStore.currentVerse] == undefined) {
-                this.render();
+              if (ch_no == undefined || verse == undefined) {
                 return [2
                 /*return*/
-                ];
+                , this.render()];
               }
 
               _d = verse[this._bStore.currentVerse], verse_no = _d.verse_no, verse_text = _d.verse_text;
-              this.setTemplateData('abbrev', abbrev);
-              this.setTemplateData('name', name);
+
+              if (verse_no == undefined || verse_text == undefined) {
+                return [2
+                /*return*/
+                , this.render()];
+              }
+
+              this.setTemplateData('abbrev', this._abbrev);
+              this.setTemplateData('name', this._name);
               this.setTemplateData('ch_name', ch_name);
               this.setTemplateData('ch_no', ch_no);
               this.setTemplateData('verse_no', verse_no);
@@ -750,22 +762,12 @@ function (_super) {
     };
 
     _this._bStore = bStore;
+    _this._abbrev = '';
+    _this._name = '';
+    _this._book = null;
+    _this._chapter = null;
     return _this;
   }
-
-  BibleView.prototype.findRandomNo = function (curLen) {
-    var tempNo = Math.floor(Math.random() * curLen);
-
-    if (tempNo == null) {
-      tempNo = 0;
-    }
-
-    if (tempNo == NaN) {
-      tempNo = 0;
-    }
-
-    return tempNo;
-  };
 
   return BibleView;
 }(view_1.default);
@@ -902,7 +904,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50078" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60141" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
