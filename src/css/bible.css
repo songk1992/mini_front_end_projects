@@ -55,7 +55,6 @@
 
 .bible_text p:hover {
   color: #fff;
-  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff,
-    0 0 40px rgb(255, 196, 0), 0 0 80px rgb(255, 217, 0),
-    0 0 90px rgb(229, 255, 0), 0 0 150px rgb(245, 248, 42);
+  text-shadow: 0 0 5px #fff, 0 0 10px, 0 0 40px rgb(255, 196, 0),
+    0 0 150px rgb(245, 248, 42);
 }
