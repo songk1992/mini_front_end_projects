@@ -51,6 +51,22 @@ a:visited {
   text-decoration: none;
 }
 
+/* 마우스 호버시 커지는 효과 */
+.grow {
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
+}
+
+.grow:hover,
+.grow:focus {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.grow:active {
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+}
+
 @charset "UTF-8";
 
 .bible_bg {
@@ -103,13 +119,16 @@ a:visited {
   text-align: center;
   color: #fff;
   text-shadow: 5px 5px #0053ff;
+}
+
+.bible_text p:first-child {
   font-size: 4vw;
 }
 
-.bible_text p:hover {
-  color: #fff;
-  text-shadow: 0 0 5px #fff, 0 0 10px, 0 0 40px rgb(255, 196, 0),
-    0 0 150px rgb(245, 248, 42);
+.bible_text p:last-child {
+  margin-top: 20px;
+  max-width: 80%;
+  font-size: 3vw;
 }
 
 @charset "UTF-8";

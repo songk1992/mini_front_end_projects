@@ -679,7 +679,7 @@ var view_1 = __importDefault(require("../core/view"));
 
 var api_1 = require("../core/api");
 
-var template = "\n<div class=\"bible-menu\">\n<p>\uC791\uC5C5\uC911</p>\n<p>{{__abbrev__}}</p>\n<p>{{__name__}}</p>\n<a href=\"#\"> \uB4A4\uB85C \uAC00\uAE30</a>\n</div>\n\n<div class=\"bible_bg\">\n    <div class=\"bible_text\">\n        <p>{{__ch_name__}} {{__ch_no__}} - {{__verse_no__}}</p>\n        <p>{{__verse_text__}}</p>\n    </div>\n</div>\n";
+var template = "\n<div class=\"bible-menu\">\n<p>\uC791\uC5C5\uC911</p>\n<p>{{__abbrev__}}</p>\n<p>{{__name__}}</p>\n<a href=\"#\"> \uB4A4\uB85C \uAC00\uAE30</a>\n</div>\n\n<div class=\"bible_bg\">\n    <div class=\"bible_text\">\n        <p class=\"grow\">{{__ch_name__}} {{__ch_no__}} - {{__verse_no__}}</p>\n        <p class=\"grow\">{{__verse_text__}}</p>\n    </div>\n</div>\n";
 
 var BibleView =
 /** @class */
@@ -904,7 +904,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60141" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62969" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
