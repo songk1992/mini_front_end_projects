@@ -50,3 +50,19 @@ a:visited {
   color: azure;
   text-decoration: none;
 }
+
+/* 마우스 호버시 커지는 효과 */
+.grow {
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
+}
+
+.grow:hover,
+.grow:focus {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.grow:active {
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+}
