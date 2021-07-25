@@ -1,5 +1,5 @@
 import View from '../core/view';
-import { BibleApi } from '../core/api';
+import { BibleApi } from '../core/api/api_bible';
 import BStore from '../store';
 
 const template: string = `

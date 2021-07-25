@@ -4,7 +4,6 @@ const template = `
 <div class="my_container">
     <div class="my_text">
         <a href="#/bible/"> 성경Api</a>
-        <a href="#"> N사 클론 코딩</a>
     </div>
 </div>
 `;
